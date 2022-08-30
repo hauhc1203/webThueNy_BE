@@ -3,19 +3,16 @@ package hauhc1203.webthueny.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Data
-public class Post {
+public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
+    private String name;
+    private String category;
     @ManyToOne
-    private Account account;
-
-    private String content;
-    private  String files;
-    private Date postDate;
-
+    private Profile profile;
 }
+

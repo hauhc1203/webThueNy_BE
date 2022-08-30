@@ -3,7 +3,7 @@ package hauhc1203.webthueny.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Data
@@ -13,16 +13,40 @@ public class Profile {
     private long id;
 
     private String fullName;
-    private String avatar;
-    private  String email;
-    private Date birthDay;
-    private double walletBalance;
-    private boolean gender;
 
+    private java.sql.Date birthDay;
+
+    @ManyToOne
+    private City city ;
+    @ManyToOne
+    private Country country;
+
+    private String avatar;
+
+    private String img1;
+
+    private String img2;
+
+    private String img3;
+
+    private float high;
+
+    private float weight;
+
+    private String hobby;
+
+    private String introduction;
+
+    private String facebookLink;
+
+    private double  cost;
+
+    private int status;
+    private String requirementsForHirer;
+    private Date createDate;
+    private boolean fullFill;
     @OneToOne
     private Account account;
-
-
 
 
 }
