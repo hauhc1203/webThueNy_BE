@@ -1,10 +1,16 @@
 package hauhc1203.webthueny.services;
 
+import hauhc1203.webthueny.models.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 
 @Service
 public class MailService {
@@ -47,24 +53,53 @@ public class MailService {
         }
 
 
-        public boolean sendMail(String toMail,String subject,String content){
+//        public boolean sendMail(String toMail,String subject,String content){
+//
+//
+//            SimpleMailMessage message =new SimpleMailMessage();
+//            message.setFrom("hch.123.shop@gmail.com");
+//            message.setTo(toMail);
+//            message.setSubject(subject);
+//            message.setText(content+createCode());
+////        Message message1=new MimeMessage();
+//            try {
+//                mailSender.send(message);
+//                return true;
+//            }catch (MailException mailException){
+//                System.out.println("loi roi"+mailException.getMessage());
+//                return false;
+//            }
+//
+//        }
+
+    public void sendMail( AppUser appUser) {
+
+        String fromAddress = "chuminhtu181120@gmail.com";
+        String content = "Xin chao,[[name]]<br>" +
+                "Dang ki thanh cong";
+        String subject = "Chao mung......";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        try {
+            helper.setFrom(fromAddress, "H shop");
+            helper.setTo(appUser.getEmail());
+            helper.setSubject(subject);
+
+            content = content.replace("[[name]]", appUser.getUserName());
+//            String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
 
 
-            SimpleMailMessage message =new SimpleMailMessage();
-            message.setFrom("hch.123.shop@gmail.com");
-            message.setTo(toMail);
-            message.setSubject(subject);
-            message.setText(content+createCode());
-//        Message message1=new MimeMessage();
-            try {
-                mailSender.send(message);
-                return true;
-            }catch (MailException mailException){
-                System.out.println("loi roi"+mailException.getMessage());
-                return false;
-            }
+            helper.setText(content, true);
 
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
+    }
 
         public String confirmCode(String code1)
         {
