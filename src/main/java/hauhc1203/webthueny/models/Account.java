@@ -17,4 +17,5 @@ public class Account{
     private Role role;
     private int status= AccountConst.OFFLINE;
     private boolean isConfirm=false;
+    private  boolean vip=false;
 }
