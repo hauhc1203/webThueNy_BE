@@ -18,7 +18,7 @@ public class Order {
     @ManyToOne
     private Profile profile;
     @ManyToOne
-    private Account account;
+    private AppUser appUser;
     private double total;
     private boolean status;
 

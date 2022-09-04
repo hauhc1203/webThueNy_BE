@@ -46,7 +46,7 @@ public class Profile {
     private Date createDate;
     private boolean fullFill;
     @OneToOne
-    private Account account;
+    private AppUser appUser;
 
 
 }
