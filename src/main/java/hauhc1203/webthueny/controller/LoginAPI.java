@@ -22,8 +22,7 @@ import java.util.List;
 @RestController
 @CrossOrigin("*")
 public class LoginAPI {
-    @Autowired
-    MailService mailService;
+
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -66,18 +65,11 @@ public class LoginAPI {
 
     @PostMapping("/register")
     public ResponseEntity<AppUser> register(@RequestBody AppUser appUser){
-        if(appUserService.findByUserName(appUser.getUserName())==null){
             String pass = passwordEncoder.encode(appUser.getPassWord());
             appUser.setPassWord(pass);
-            List<Role> roles =new ArrayList<>();
-            Role role = new Role();
-            role.setId(1);
-            roles.add(role);
-            appUser.setRoles(roles);
-            mailService.sendMail(appUser);
             return new ResponseEntity<>(appUserService.save(appUser), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+
     }
 
 
