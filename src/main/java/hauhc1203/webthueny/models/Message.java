@@ -12,10 +12,10 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
-    private Account sender;
+    private AppUser sender;
 
     @ManyToOne
-    private Account receiver;
+    private AppUser receiver;
 
     private String content;
 

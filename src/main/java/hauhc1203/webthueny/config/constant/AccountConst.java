@@ -1,4 +1,4 @@
-package hauhc1203.webthueny.configs.constant;
+package hauhc1203.webthueny.config.constant;
 
 public class AccountConst {
     public final static  int OFFLINE=0;
