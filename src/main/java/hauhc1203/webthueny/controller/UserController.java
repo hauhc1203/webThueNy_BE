@@ -1,5 +1,6 @@
 package hauhc1203.webthueny.controller;
 
+import hauhc1203.webthueny.config.constant.AccountConst;
 import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.services.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/user")
+@RequestMapping("/admin")
 public class UserController {
     @Autowired
     AppUserService appUserService;
@@ -19,12 +20,21 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<AppUser>> getAll(){
 //        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return new ResponseEntity<>(appUserService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(appUserService.findByRoleUser(), HttpStatus.OK);
     }
+
 
     @GetMapping("/find/{name}")
     public AppUser findByName(@PathVariable String name){
         return appUserService.findByName(name);
+    }
+
+    @GetMapping("/ban/{id}")
+    public ResponseEntity<AppUser> banUser(@PathVariable long id){
+        System.out.println("ddddddddddddddddddddddddd" +id);
+        AppUser appUser = appUserService.findById(id);
+        appUser.setStatus(AccountConst.BANED);
+        return new ResponseEntity<>(appUserService.save(appUser),HttpStatus.OK);
     }
 
 

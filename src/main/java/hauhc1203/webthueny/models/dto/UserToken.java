@@ -10,6 +10,7 @@ public class UserToken {
     private String token;
     private List<Role> roles;
 
+
     public UserToken() {
     }
 
@@ -18,6 +19,7 @@ public class UserToken {
         this.userName = userName;
         this.token = token;
         this.roles = roles;
+
     }
 
 //    public UserToken(String userName, String token, List<Role> roles) {
