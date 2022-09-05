@@ -59,7 +59,6 @@ public class LoginAPI {
 
     @GetMapping("/findByEmail/{email}")
     public ResponseEntity<AppUser> findByEmail(@PathVariable String email){
-        System.out.println("email"+ appUserService.findByEmail(email));
         return new ResponseEntity<>(appUserService.findByEmail(email),HttpStatus.OK);
     }
 
