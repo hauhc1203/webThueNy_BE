@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
@@ -45,6 +46,8 @@ public class Profile {
     private String requirementsForHirer;
     private Date createDate;
     private boolean fullFill;
+    @ManyToMany(fetch = FetchType.EAGER )
+    private Set<Service> serviceList;
     @OneToOne
     private AppUser appUser;
 

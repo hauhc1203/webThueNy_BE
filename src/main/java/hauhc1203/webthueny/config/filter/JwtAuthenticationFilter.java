@@ -1,8 +1,4 @@
 package hauhc1203.webthueny.config.filter;
-
-
-
-
 import hauhc1203.webthueny.services.AppUserService;
 import hauhc1203.webthueny.services.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -16,7 +16,7 @@ import java.io.UnsupportedEncodingException;
 public class MailService {
         @Autowired
         JavaMailSender mailSender;
-        String superCode="asj1hxnqj11$^&**()(*&^%$@!#$%^&*((*&^((*&^yhHJHVUHJKasdadsa21ad2as!$23653$@4$3sdfsdf2";
+        String superCode="asj1hxnqj11$^&**()(*&^%$@!#$%^&*((*&^((*&^yhHJHVUHJKasda12(*&&dsa21ad2as!$23653$@4$3sdfsdf2";
         String code=superCode;
         String [] upper={ "A", "B", "C", "D", "E", "F", "G", "H", "I" ,"J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         String [] lower={"a", "b", "c", "d", "e", "f", "g", "h" ,"i" ,"k" , "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
@@ -74,16 +74,16 @@ public class MailService {
 
     public void sendMail( AppUser appUser) {
 
-        String fromAddress = "chuminhtu181120@gmail.com";
-        String content = "Xin chao,[[name]]<br>" +
-                "Dang ki thanh cong";
-        String subject = "Chao mung......";
+        String fromAddress = "hch.123.shop@gmail.com";
+        String content ="Xin chào, [[name]]<br>" +
+                        "Bạn đã đăng ký tài khoản thành công.";
+        String subject = "Chào mừng bạn tham gia hệ thống của chúng tôi ! ";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         try {
-            helper.setFrom(fromAddress, "H shop");
+            helper.setFrom(fromAddress, "Chiến thần Khuất Duy Tiến");
             helper.setTo(appUser.getEmail());
             helper.setSubject(subject);
 
