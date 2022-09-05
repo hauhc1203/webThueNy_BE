@@ -68,8 +68,6 @@ public class LoginAPI {
             String pass = passwordEncoder.encode(appUser.getPassWord());
             appUser.setPassWord(pass);
             return new ResponseEntity<>(appUserService.save(appUser), HttpStatus.OK);
-
-
     }
 
 
