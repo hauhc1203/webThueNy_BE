@@ -32,6 +32,10 @@ public class AppUserService implements UserDetailsService {
         return (List<AppUser>) appUserRepo.findAll();
     }
 
+    public AppUser findById(long id){
+        return appUserRepo.findAppUsersById(id);
+    }
+
     public AppUser findByUserName(String username){
         return appUserRepo.findAppUsersByUserName(username);
     }
@@ -40,7 +44,9 @@ public class AppUserService implements UserDetailsService {
         return appUserRepo.findAppUsersByEmail(mail);
     }
 
-
+    public List<AppUser > findByRoleUser(){
+        return appUserRepo.getAppUserByRoles();
+    }
 
     public AppUser save(AppUser user){
         Role role=new Role();
@@ -73,5 +79,7 @@ public class AppUserService implements UserDetailsService {
     public AppUser findByName(String name){
         return appUserRepo.findAppUsersByUserName(name);
     }
+
+
 }
 
