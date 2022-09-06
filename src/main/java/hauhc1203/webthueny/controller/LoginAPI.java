@@ -68,10 +68,10 @@ public class LoginAPI {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AppUser> register(@RequestBody AppUser appUser){
+    public ResponseEntity<List<Boolean>> register(@RequestBody AppUser appUser){
             String pass = passwordEncoder.encode(appUser.getPassWord());
             appUser.setPassWord(pass);
-            return new ResponseEntity<>(appUserService.save(appUser), HttpStatus.OK);
+            return new ResponseEntity<>(appUserService.checkDuplicate(appUser), HttpStatus.OK);
     }
 
 

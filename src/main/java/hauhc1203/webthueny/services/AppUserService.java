@@ -28,6 +28,8 @@ public class AppUserService implements UserDetailsService {
     @Autowired
     ProfileRepo profileRepo;
 
+
+
     public List<AppUser> getAll(){
         return (List<AppUser>) appUserRepo.findAll();
     }
@@ -40,9 +42,6 @@ public class AppUserService implements UserDetailsService {
         return appUserRepo.findAppUsersByUserName(username);
     }
 
-    public AppUser findByEmail(String mail){
-        return appUserRepo.findAppUsersByEmail(mail);
-    }
 
     public List<AppUser > findByRoleUser(){
         return appUserRepo.getAppUserByRoles();
@@ -75,9 +74,27 @@ public class AppUserService implements UserDetailsService {
         AppUser appUser = appUserRepo.findAppUsersByUserName(username);
         return new User(appUser.getUserName(),appUser.getPassWord(),appUser.getRoles());
     }
+    public AppUser findByEmail(String mail){
+        return appUserRepo.findAppUsersByEmail(mail);
+    }
 
     public AppUser findByName(String name){
         return appUserRepo.findAppUsersByUserName(name);
+    }
+
+    public List<Boolean> checkDuplicate (AppUser appUser ){
+        List<Boolean> result=new ArrayList<>();
+        AppUser appUserbyEmail=findByEmail(appUser.getEmail());
+        AppUser appUserByName=findByName(appUser.getUserName());
+
+        boolean checkMail=appUserbyEmail==null;
+        boolean checkName=appUserByName==null;
+        if (checkMail&&checkName){
+            save(save(appUser));
+        }
+        result.add(checkName);
+        result.add(checkMail);
+        return result;
     }
 
 
