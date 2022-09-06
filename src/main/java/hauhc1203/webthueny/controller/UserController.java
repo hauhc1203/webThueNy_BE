@@ -37,5 +37,26 @@ public class UserController {
         return new ResponseEntity<>(appUserService.save(appUser),HttpStatus.OK);
     }
 
+    @GetMapping("/offline/{id}")
+    public ResponseEntity<AppUser> offline(@PathVariable long id){
+        AppUser appUser = appUserService.findById(id);
+        appUser.setStatus(AccountConst.OFFLINE);
+        return new ResponseEntity<>(appUserService.save(appUser),HttpStatus.OK);
+    }
+
+    @GetMapping("/vip/{id}")
+    public ResponseEntity<AppUser> vip(@PathVariable long id){
+        AppUser appUser = appUserService.findById(id);
+        appUser.setVip(true);
+        return new ResponseEntity<>(appUserService.save(appUser),HttpStatus.OK);
+    }
+
+    @GetMapping("/unvip/{id}")
+    public ResponseEntity<AppUser> unvip(@PathVariable long id){
+        AppUser appUser = appUserService.findById(id);
+        appUser.setVip(false);
+        return new ResponseEntity<>(appUserService.save(appUser),HttpStatus.OK);
+    }
+
 
 }
