@@ -1,5 +1,6 @@
 package hauhc1203.webthueny.services;
 
+import hauhc1203.webthueny.config.constant.AccountConst;
 import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.models.Profile;
 import hauhc1203.webthueny.models.Role;
@@ -49,10 +50,12 @@ public class AppUserService implements UserDetailsService {
     public List<AppUser > findByRoleUser(){
         return appUserRepo.getAppUserByRoles();
     }
-
+    public AppUser save1(AppUser user){
+        return appUserRepo.save(user);
+    }
     public AppUser save(AppUser user){
         Role role=new Role();
-        role.setId(1);
+        role.setId(AccountConst.ROLE_USER);
 //        Role role1=new Role();
 //        role1.setId(2);
         List<Role> roles=new ArrayList<>();

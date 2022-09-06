@@ -47,7 +47,7 @@ public class Profile {
     private Date createDate;
     private boolean fullFill;
     @ManyToMany(fetch = FetchType.EAGER )
-    private Set<Service> serviceList;
+    private Set<ProvideService> serviceList;
     @OneToOne
     private AppUser appUser;
 
