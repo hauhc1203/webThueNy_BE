@@ -3,6 +3,7 @@ package hauhc1203.webthueny.services;
 import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.models.Profile;
 import hauhc1203.webthueny.models.Role;
+import hauhc1203.webthueny.models.Wallet;
 import hauhc1203.webthueny.repository.AppUserRepo;
 import hauhc1203.webthueny.repository.ProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,8 @@ public class AppUserService implements UserDetailsService {
     AppUserRepo appUserRepo;
     @Autowired
     ProfileRepo profileRepo;
-
+    @Autowired
+    WalletService walletService;
     public List<AppUser> getAll(){
         return (List<AppUser>) appUserRepo.findAll();
     }
@@ -59,12 +61,19 @@ public class AppUserService implements UserDetailsService {
         user.setRoles(roles);
         AppUser appUser= appUserRepo.save(user);
         mailService.sendMail(appUser);
+
+
         Profile profile=new Profile();
         Date createDate =new Date();
         profile.setAppUser(appUser);
         profile.setCreateDate(createDate);
-
         profileRepo.save(profile);
+
+        Wallet wallet=new Wallet();
+        wallet.setAppUser(appUser);
+        wallet.setAmount(1000000000);
+        walletService.save(wallet);
+
         return appUser;
 
 
