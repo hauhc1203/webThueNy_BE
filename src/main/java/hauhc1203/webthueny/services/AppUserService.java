@@ -45,8 +45,11 @@ public class AppUserService implements UserDetailsService {
     public AppUser save(AppUser user){
         Role role=new Role();
         role.setId(1);
+//        Role role1=new Role();
+//        role1.setId(2);
         List<Role> roles=new ArrayList<>();
         roles.add(role);
+//        roles.add(role1);
         user.setRoles(roles);
         AppUser appUser= appUserRepo.save(user);
         mailService.sendMail(appUser);

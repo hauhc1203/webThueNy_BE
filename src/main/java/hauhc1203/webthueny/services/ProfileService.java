@@ -16,5 +16,7 @@ public class ProfileService {
         return profileRepo.findByAppUserId(id);
     }
 
-
+    public void save (Profile profile){
+        profileRepo.save(profile);
+    }
 }
