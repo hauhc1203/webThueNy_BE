@@ -44,6 +44,7 @@ public class ProvideServiceS {
         profile.setServiceList(serviceList);
         profileService.save(profile);
 
+
         Role role=new Role();
         role.setId(AccountConst.ROLE_CCDV);
         List<Role> roles=appUser.getRoles();
