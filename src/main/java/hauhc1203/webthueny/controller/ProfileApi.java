@@ -27,13 +27,12 @@ public class ProfileApi {
         AppUser appUser = appUserService.findByUserName(userDetails.getUsername());
         return profileService.findByName(appUser.getUserName());
     }
-    @PostMapping("/edit")
-    public void edit(@RequestBody Profile profile){
+    @PostMapping("/editAvarta")
+    public void edit(@RequestBody String avatar){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser = appUserService.findByUserName(userDetails.getUsername());
-        Profile proOld =  profileService.findByName(appUser.getUserName());
-        profile.setAppUser(appUser);
-        profile.setAvatar(proOld.getAvatar());
+        Profile profile =  profileService.findByName(appUser.getUserName());
+        profile.setAvatar(avatar);
         profileService.save(profile);
     }
 }

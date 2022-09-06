@@ -3,6 +3,7 @@ package hauhc1203.webthueny.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -12,7 +13,6 @@ public class Service {
     private int id;
     private String name;
     private String category;
-    @ManyToOne
-    private Profile profile;
+
 }
 
