@@ -54,7 +54,7 @@ public class ProvideServiceS {
         List<Role> roles=appUser.getRoles();
         roles.add(role);
         appUser.setRoles(roles);
-        appUserService.save1(appUser);
+        appUserService.save(appUser);
 
     }
 }

@@ -43,28 +43,17 @@ public class AppUserService implements UserDetailsService {
         return appUserRepo.findAppUsersByUserName(username);
     }
 
-    public AppUser findByEmail(String mail){
-        return appUserRepo.findAppUsersByEmail(mail);
-    }
 
     public List<AppUser > findByRoleUser(){
         return appUserRepo.getAppUserByRoles();
     }
-    public AppUser save1(AppUser user){
-        return appUserRepo.save(user);
-    }
 
     public void  register(AppUser user){
-
-    }
-    public AppUser save(AppUser user){
         Role role=new Role();
         role.setId(AccountConst.ROLE_USER);
-//        Role role1=new Role();
-//        role1.setId(2);
+
         List<Role> roles=new ArrayList<>();
         roles.add(role);
-//        roles.add(role1);
         user.setRoles(roles);
         AppUser appUser= appUserRepo.save(user);
         mailService.sendMail(appUser);
@@ -80,9 +69,10 @@ public class AppUserService implements UserDetailsService {
         wallet.setAppUser(appUser);
         wallet.setAmount(1000000000);
         walletService.save(wallet);
+    }
+    public AppUser save(AppUser appUser){
 
-        return appUser;
-
+        return appUserRepo.save(appUser);
 
     }
 
@@ -91,9 +81,27 @@ public class AppUserService implements UserDetailsService {
         AppUser appUser = appUserRepo.findAppUsersByUserName(username);
         return new User(appUser.getUserName(),appUser.getPassWord(),appUser.getRoles());
     }
+    public AppUser findByEmail(String mail){
+        return appUserRepo.findAppUsersByEmail(mail);
+    }
 
     public AppUser findByName(String name){
         return appUserRepo.findAppUsersByUserName(name);
+    }
+
+    public List<Boolean> checkDuplicate (AppUser appUser ){
+        List<Boolean> result=new ArrayList<>();
+        AppUser appUserbyEmail=findByEmail(appUser.getEmail());
+        AppUser appUserByName=findByName(appUser.getUserName());
+
+        boolean checkMail=appUserbyEmail==null;
+        boolean checkName=appUserByName==null;
+        if (checkMail&&checkName){
+            register(appUser);
+        }
+        result.add(checkName);
+        result.add(checkMail);
+        return result;
     }
 
 
