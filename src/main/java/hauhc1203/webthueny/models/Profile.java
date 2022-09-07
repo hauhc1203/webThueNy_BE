@@ -41,7 +41,7 @@ public class Profile {
     private String facebookLink;
 
     private double  cost;
-
+    private boolean gender;
     private int status;
     private String requirementsForHirer;
     private Date createDate;
@@ -50,6 +50,10 @@ public class Profile {
     private Set<Service> serviceList;
     @OneToOne
     private AppUser appUser;
+
+
+
+
 
 
 }

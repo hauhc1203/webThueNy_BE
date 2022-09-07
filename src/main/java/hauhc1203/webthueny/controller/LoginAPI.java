@@ -1,5 +1,6 @@
 package hauhc1203.webthueny.controller;
 
+import hauhc1203.webthueny.config.constant.AccountConst;
 import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.models.Role;
 import hauhc1203.webthueny.models.dto.UserToken;
@@ -44,8 +45,12 @@ public class LoginAPI {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtService.createToken(authentication);
             AppUser appUser1 = appUserService.findByUserName(appUser.getUserName());
+            if(appUser1.getStatus()!= AccountConst.BANED){
 
-            return new UserToken(appUser1.getId(),appUser1.getUserName(),token,appUser1.getRoles());
+                return new UserToken(appUser1.getId(),appUser1.getUserName(),token,appUser1.getRoles());
+            } else {
+                return new UserToken();
+            }
         } catch (Exception e){
             System.out.println(e);
             return null;
@@ -59,7 +64,6 @@ public class LoginAPI {
 
     @GetMapping("/findByEmail/{email}")
     public ResponseEntity<AppUser> findByEmail(@PathVariable String email){
-        System.out.println("email"+ appUserService.findByEmail(email));
         return new ResponseEntity<>(appUserService.findByEmail(email),HttpStatus.OK);
     }
 
@@ -69,6 +73,8 @@ public class LoginAPI {
             appUser.setPassWord(pass);
             return new ResponseEntity<>(appUserService.save(appUser), HttpStatus.OK);
     }
+
+
 
 
 }

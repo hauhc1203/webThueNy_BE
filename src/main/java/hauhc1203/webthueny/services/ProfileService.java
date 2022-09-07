@@ -7,15 +7,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProfileService {
+
     @Autowired
     ProfileRepo profileRepo;
 
-    public void save(Profile profile) {
-        profileRepo.save(profile);
+
+    public Profile findByAppUserID(long id){
+        return profileRepo.findByAppUserId(id);
     }
 
-    public Profile findByName(String name) {
-        return profileRepo.findByAppUserUserName(name);
-
+    public void save (Profile profile){
+        profileRepo.save(profile);
     }
 }
