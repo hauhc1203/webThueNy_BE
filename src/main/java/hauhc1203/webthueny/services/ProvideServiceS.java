@@ -7,6 +7,9 @@ import hauhc1203.webthueny.models.ProvideService;
 import hauhc1203.webthueny.models.Role;
 import hauhc1203.webthueny.repository.ProvideServiceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,7 +33,8 @@ public class ProvideServiceS {
     }
 
     public void registerService(double [] data){
-       AppUser appUser=appUserService.findByUserName("quan3");
+       UserDetails userDetails=(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+       AppUser appUser=appUserService.findByUserName(userDetails.getUsername());
        Profile profile=profileService.findByAppUserID(appUser.getId());
 
        Set<ProvideService> serviceList=new HashSet<>();

@@ -53,6 +53,10 @@ public class AppUserService implements UserDetailsService {
     public AppUser save1(AppUser user){
         return appUserRepo.save(user);
     }
+
+    public void  register(AppUser user){
+
+    }
     public AppUser save(AppUser user){
         Role role=new Role();
         role.setId(AccountConst.ROLE_USER);
