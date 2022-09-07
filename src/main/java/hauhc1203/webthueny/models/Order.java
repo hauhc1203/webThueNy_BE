@@ -14,12 +14,20 @@ public class Order {
     private long id;
     private int time;
     private int startTime;
+    private String address;
     private Date datingTime;
     @ManyToOne
     private Profile profile;
     @ManyToOne
     private AppUser appUser;
+
+    private boolean doneFromUser;
+    private String messFromUser;
+    private boolean doneFromCCDV;
+    private String messFromCCDV;
+
     private double total;
+
     private boolean status;
 
 }
