@@ -66,7 +66,7 @@ public class ProfileAPI {
 //        profile.setImg1(profiles.getImg1());
 //        profile.setImg2(profiles.getImg2());
 //        profile.setImg3(profiles.getImg3());
-        profileService.save(profiles);
+        profileService.save(profile);
 
     }
 }
