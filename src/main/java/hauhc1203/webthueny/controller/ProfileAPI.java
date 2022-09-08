@@ -56,4 +56,10 @@ public class ProfileAPI {
         profile.setAvatar(img1);
         profileService.save(profile);
     }
+    @PostMapping("/edit")
+    public void edit(@RequestBody Profile profile){
+
+        profileService.edit(profile);
+
+    }
 }
