@@ -70,5 +70,10 @@ public class AdminAPI {
         return new ResponseEntity<>(orderService.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/showOder/{id}")
+    public ResponseEntity<Order>  showOderDetail(@PathVariable long id){
+        return new ResponseEntity<>(orderService.findById(id),HttpStatus.OK);
+    }
+
 
 }

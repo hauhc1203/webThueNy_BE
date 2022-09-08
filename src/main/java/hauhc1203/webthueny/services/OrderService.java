@@ -18,5 +18,9 @@ public class OrderService {
         return (List<Order>) orderRepo.findAll();
     }
 
+    public Order findById(long id){
+        return orderRepo.findOrderById(id);
+    }
+
 
 }
