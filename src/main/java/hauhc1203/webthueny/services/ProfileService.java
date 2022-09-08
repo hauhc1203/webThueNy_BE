@@ -41,6 +41,7 @@ public class ProfileService {
         profile1.setIntroduction(profile.getIntroduction());
         profile1.setFacebookLink(profile.getFacebookLink());
         profile1.setGender(profile.isGender());
+
         save(profile1);
 
     }
