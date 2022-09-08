@@ -41,16 +41,27 @@ public class Profile {
     private String facebookLink;
 
     private double  cost;
+
     private boolean gender;
+
     private int status;
+
     private String requirementsForHirer;
+
     private Date createDate;
-    private boolean fullFill;
+
+    private boolean isConfirm=false;
+
+    private boolean isRegisterProvideService=false;
+
     @ManyToMany(fetch = FetchType.EAGER )
-    private Set<Service> serviceList;
+
+    private Set<ProvideService> serviceList;
+
     @OneToOne
     private AppUser appUser;
 
+    private long views;
 
 
 

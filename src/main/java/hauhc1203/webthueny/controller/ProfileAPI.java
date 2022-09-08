@@ -58,10 +58,8 @@ public class ProfileAPI {
     }
     @PostMapping("/edit")
     public void edit(@RequestBody Profile profile){
-        UserDetails userDetails=(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        AppUser appUser=appUserService.findByUserName(userDetails.getUsername());
-        profile.setAppUser(appUser);
-        profileService.save(profile);
+
+        profileService.edit(profile);
 
     }
 }

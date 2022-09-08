@@ -1,8 +1,10 @@
 package hauhc1203.webthueny.services;
 
+import hauhc1203.webthueny.config.constant.AccountConst;
 import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.models.Profile;
 import hauhc1203.webthueny.models.Role;
+import hauhc1203.webthueny.models.Wallet;
 import hauhc1203.webthueny.repository.AppUserRepo;
 import hauhc1203.webthueny.repository.ProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,8 @@ public class AppUserService implements UserDetailsService {
     AppUserRepo appUserRepo;
     @Autowired
     ProfileRepo profileRepo;
-
+    @Autowired
+    WalletService walletService;
     public List<AppUser> getAll(){
         return (List<AppUser>) appUserRepo.findAll();
     }
@@ -40,33 +43,36 @@ public class AppUserService implements UserDetailsService {
         return appUserRepo.findAppUsersByUserName(username);
     }
 
-    public AppUser findByEmail(String mail){
-        return appUserRepo.findAppUsersByEmail(mail);
-    }
 
     public List<AppUser > findByRoleUser(){
         return appUserRepo.getAppUserByRoles();
     }
 
-    public AppUser save(AppUser user){
+    public void  register(AppUser user){
         Role role=new Role();
-        role.setId(1);
-//        Role role1=new Role();
-//        role1.setId(2);
+        role.setId(AccountConst.ROLE_USER);
+
         List<Role> roles=new ArrayList<>();
         roles.add(role);
-//        roles.add(role1);
         user.setRoles(roles);
         AppUser appUser= appUserRepo.save(user);
         mailService.sendMail(appUser);
+
+
         Profile profile=new Profile();
         Date createDate =new Date();
         profile.setAppUser(appUser);
         profile.setCreateDate(createDate);
-
         profileRepo.save(profile);
-        return appUser;
 
+        Wallet wallet=new Wallet();
+        wallet.setAppUser(appUser);
+        wallet.setAmount(1000000000);
+        walletService.save(wallet);
+    }
+    public AppUser save(AppUser appUser){
+
+        return appUserRepo.save(appUser);
 
     }
 
@@ -75,9 +81,27 @@ public class AppUserService implements UserDetailsService {
         AppUser appUser = appUserRepo.findAppUsersByUserName(username);
         return new User(appUser.getUserName(),appUser.getPassWord(),appUser.getRoles());
     }
+    public AppUser findByEmail(String mail){
+        return appUserRepo.findAppUsersByEmail(mail);
+    }
 
     public AppUser findByName(String name){
         return appUserRepo.findAppUsersByUserName(name);
+    }
+
+    public List<Boolean> checkDuplicate (AppUser appUser ){
+        List<Boolean> result=new ArrayList<>();
+        AppUser appUserbyEmail=findByEmail(appUser.getEmail());
+        AppUser appUserByName=findByName(appUser.getUserName());
+
+        boolean checkMail=appUserbyEmail==null;
+        boolean checkName=appUserByName==null;
+        if (checkMail&&checkName){
+            register(appUser);
+        }
+        result.add(checkName);
+        result.add(checkMail);
+        return result;
     }
 
 
