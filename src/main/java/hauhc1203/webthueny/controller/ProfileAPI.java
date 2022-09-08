@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/profile")
 @CrossOrigin("*")
@@ -62,4 +64,9 @@ public class ProfileAPI {
         profileService.edit(profile);
 
     }
+    @GetMapping("/showViews")
+    public List<Profile> showProfileByViews(){
+        return profileService.showProfileView();
+    }
+
 }

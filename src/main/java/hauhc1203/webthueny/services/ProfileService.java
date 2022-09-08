@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProfileService {
 
@@ -44,5 +46,8 @@ public class ProfileService {
 
         save(profile1);
 
+    }
+    public List<Profile>showProfileView(){
+        return profileRepo.getProfileByViews();
     }
 }
