@@ -17,6 +17,8 @@ public class ProfileService {
     }
 
     public void save (Profile profile){
-        profileRepo.save(profile);
+
+        Profile profile1=  profileRepo.save(profile);
+        System.out.println(profile1);
     }
 }
