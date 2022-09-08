@@ -56,4 +56,12 @@ public class ProfileAPI {
         profile.setAvatar(img1);
         profileService.save(profile);
     }
+    @PostMapping("/edit")
+    public void edit(@RequestBody Profile profile){
+        UserDetails userDetails=(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AppUser appUser=appUserService.findByUserName(userDetails.getUsername());
+        profile.setAppUser(appUser);
+        profileService.save(profile);
+
+    }
 }
