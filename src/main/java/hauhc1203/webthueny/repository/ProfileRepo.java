@@ -11,4 +11,5 @@ public interface ProfileRepo extends PagingAndSortingRepository<Profile,Long> {
     Profile findByAppUserId(long id);
     @Query(nativeQuery = true,value = "SELECT * FROM profile order by views desc limit 3")
     List<Profile>getProfileByViews();
+
 }

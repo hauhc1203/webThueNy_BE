@@ -2,8 +2,13 @@ package hauhc1203.webthueny.controller;
 
 import hauhc1203.webthueny.config.constant.AccountConst;
 import hauhc1203.webthueny.models.AppUser;
+import hauhc1203.webthueny.models.Order;
 import hauhc1203.webthueny.services.AppUserService;
+import hauhc1203.webthueny.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +22,8 @@ public class AdminAPI {
     @Autowired
     AppUserService appUserService;
 
+    @Autowired
+    OrderService orderService;
     @GetMapping
     public ResponseEntity<List<AppUser>> getAll(){
 //        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -58,6 +65,10 @@ public class AdminAPI {
         return new ResponseEntity<>(appUserService.save(appUser),HttpStatus.OK);
     }
 
+    @GetMapping("/showOrder")
+    public ResponseEntity<List<Order>> showOder(){
+        return new ResponseEntity<>(orderService.getAll(), HttpStatus.OK);
+    }
 
 
 }
