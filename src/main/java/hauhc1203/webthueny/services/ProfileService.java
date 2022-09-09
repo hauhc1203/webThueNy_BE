@@ -1,5 +1,6 @@
 package hauhc1203.webthueny.services;
 
+import hauhc1203.webthueny.config.constant.ProfileConst;
 import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.models.Profile;
 import hauhc1203.webthueny.repository.ProfileRepo;
@@ -44,5 +45,10 @@ public class ProfileService {
 
         save(profile1);
 
+    }
+    public void reqVerification(long id){
+        Profile profile=profileRepo.findByAppUserId(id);
+        profile.setIsConfirm(ProfileConst.REQUEST_CONFIRM_PROFILE);
+        save(profile);
     }
 }

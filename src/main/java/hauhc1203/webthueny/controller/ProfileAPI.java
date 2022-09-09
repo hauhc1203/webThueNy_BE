@@ -62,4 +62,9 @@ public class ProfileAPI {
         profileService.edit(profile);
 
     }
+
+    @GetMapping("reqVerification/{id}")
+    public void reqVerification(@PathVariable long id){
+        profileService.reqVerification(id);
+    }
 }

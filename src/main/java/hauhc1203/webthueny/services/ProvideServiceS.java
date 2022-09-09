@@ -26,6 +26,10 @@ public class ProvideServiceS {
     @Autowired
     AppUserService appUserService;
 
+    public Set<ProvideService> getAllbyProfile(long id){
+        Profile profile=profileService.findByAppUserID(id);
+        return profile.getServiceList();
+    }
 
     public List<ProvideService> getAll(){
         List<ProvideService> provideServices=(List<ProvideService>) provideServiceRepo.findAll();

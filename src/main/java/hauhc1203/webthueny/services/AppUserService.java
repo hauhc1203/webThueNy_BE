@@ -8,7 +8,6 @@ import hauhc1203.webthueny.models.Wallet;
 import hauhc1203.webthueny.repository.AppUserRepo;
 import hauhc1203.webthueny.repository.ProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -49,14 +47,15 @@ public class AppUserService implements UserDetailsService {
     }
 
     public void  register(AppUser user){
+        //add role
         Role role=new Role();
         role.setId(AccountConst.ROLE_USER);
-
         List<Role> roles=new ArrayList<>();
         roles.add(role);
         user.setRoles(roles);
+        //save user
         AppUser appUser= appUserRepo.save(user);
-        mailService.sendMail(appUser);
+
 
 
         Profile profile=new Profile();
@@ -97,7 +96,12 @@ public class AppUserService implements UserDetailsService {
         boolean checkMail=appUserbyEmail==null;
         boolean checkName=appUserByName==null;
         if (checkMail&&checkName){
-            register(appUser);
+            boolean maildung=mailService.sendMail(appUser);
+            if (maildung){
+                register(appUser);
+            }else {
+                checkMail=false;
+            }
         }
         result.add(checkName);
         result.add(checkMail);
