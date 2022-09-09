@@ -28,6 +28,6 @@ public class Order {
 
     private double total;
 
-    private boolean status;
+    private int status;
 
 }
