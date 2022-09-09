@@ -67,4 +67,14 @@ public class ProfileAPI {
     public void reqVerification(@PathVariable long id){
         profileService.reqVerification(id);
     }
+
+    @PostMapping("editprice")
+    public ResponseEntity<Profile> editP(@RequestBody Profile profile){
+        return new ResponseEntity<>(profileService.editPrice(profile.getCost()),HttpStatus.OK);
+    }
+
+    @PostMapping("editrqm")
+    public ResponseEntity<Profile> editrqm(@RequestBody Profile profile){
+        return new ResponseEntity<>(profileService.editrqm(profile.getRequirementsForHirer()),HttpStatus.OK);
+    }
 }

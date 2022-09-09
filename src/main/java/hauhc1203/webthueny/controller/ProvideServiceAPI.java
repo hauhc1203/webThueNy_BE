@@ -1,5 +1,6 @@
 package hauhc1203.webthueny.controller;
 
+import hauhc1203.webthueny.models.Profile;
 import hauhc1203.webthueny.models.ProvideService;
 import hauhc1203.webthueny.services.ProvideServiceS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class ProvideServiceAPI {
     @PostMapping
     public void registerService(@RequestBody double[] data){
        provideServiceS.registerService(data);
+    }
+
+    @GetMapping("changestatus")
+    public ResponseEntity<Profile> changeStatus(){
+        return new ResponseEntity<>(provideServiceS.changeStatus(),HttpStatus.OK);
     }
 }

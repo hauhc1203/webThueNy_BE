@@ -8,6 +8,7 @@ import hauhc1203.webthueny.models.Wallet;
 import hauhc1203.webthueny.repository.AppUserRepo;
 import hauhc1203.webthueny.repository.ProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -108,6 +109,10 @@ public class AppUserService implements UserDetailsService {
         return result;
     }
 
+    public AppUser getAppUserByUserDetail(){
+        UserDetails userDetails=(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return findByUserName(userDetails.getUsername());
 
+    }
 }
 

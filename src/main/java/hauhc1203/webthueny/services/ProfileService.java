@@ -23,15 +23,17 @@ public class ProfileService {
         return profileRepo.findByAppUserId(id);
     }
 
-    public void save (Profile profile){
 
-        Profile profile1=  profileRepo.save(profile);
-        System.out.println(profile1);
+
+    public Profile save (Profile profile){
+
+        return profileRepo.save(profile);
     }
     public void edit(Profile profile){
-        UserDetails userDetails=(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        AppUser appUser=appUserService.findByUserName(userDetails.getUsername());
+
+        AppUser appUser=appUserService.getAppUserByUserDetail();
         Profile profile1=findByAppUserID(appUser.getId());
+
         profile1.setBirthDay(profile.getBirthDay());
         profile1.setFullName(profile.getFullName());
         profile1.setWeight(profile.getWeight());
@@ -50,5 +52,19 @@ public class ProfileService {
         Profile profile=profileRepo.findByAppUserId(id);
         profile.setIsConfirm(ProfileConst.REQUEST_CONFIRM_PROFILE);
         save(profile);
+    }
+
+    public Profile editPrice(double price){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+        Profile profile=findByAppUserID(appUser.getId());
+        profile.setCost(price);
+        return save(profile);
+    }
+
+    public Profile editrqm(String rqm){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+        Profile profile=findByAppUserID(appUser.getId());
+        profile.setRequirementsForHirer(rqm);
+        return save(profile);
     }
 }

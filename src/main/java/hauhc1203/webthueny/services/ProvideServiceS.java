@@ -1,6 +1,7 @@
 package hauhc1203.webthueny.services;
 
 import hauhc1203.webthueny.config.constant.AccountConst;
+import hauhc1203.webthueny.config.constant.ProfileConst;
 import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.models.Profile;
 import hauhc1203.webthueny.models.ProvideService;
@@ -50,6 +51,7 @@ public class ProvideServiceS {
             serviceList.add(provideService);
         }
         profile.setServiceList(serviceList);
+        profile.setStatus(ProfileConst.STOP_PROVIDING_SERVICE);
         profileService.save(profile);
 
 
@@ -61,4 +63,19 @@ public class ProvideServiceS {
         appUserService.save(appUser);
 
     }
+
+    public  Profile  changeStatus(){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+        Profile profile=profileService.findByAppUserID(appUser.getId());
+        if (profile.getStatus()==ProfileConst.STOP_PROVIDING_SERVICE){
+            profile.setStatus(ProfileConst.START_PROVIDING_SERVICE);
+        }else {
+            profile.setStatus(ProfileConst.STOP_PROVIDING_SERVICE);
+        }
+
+       return profileService.save(profile);
+
+
+    }
+
 }
