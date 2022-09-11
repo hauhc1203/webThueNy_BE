@@ -3,6 +3,7 @@ package hauhc1203.webthueny.controller;
 import hauhc1203.webthueny.config.constant.AccountConst;
 import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.models.Order;
+import hauhc1203.webthueny.models.Role;
 import hauhc1203.webthueny.services.AppUserService;
 import hauhc1203.webthueny.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -75,5 +77,14 @@ public class AdminAPI {
         return new ResponseEntity<>(orderService.findById(id),HttpStatus.OK);
     }
 
-
+    @GetMapping("resetrole")
+    public void rsRole(){
+        AppUser appUser=appUserService.findById(18);
+        List<Role>roles=  new ArrayList<>();
+        Role role=new Role();
+        role.setId(AccountConst.ROLE_USER);
+        roles.add(role);
+        appUser.setRoles(roles);
+        appUserService.save(appUser);
+    }
 }

@@ -55,14 +55,29 @@ public class ProvideServiceS {
         profileService.save(profile);
 
 
-        Role role=new Role();
-        role.setId(AccountConst.ROLE_CCDV);
-        List<Role> roles=appUser.getRoles();
-        roles.add(role);
-        appUser.setRoles(roles);
+        if (!checkRole(AccountConst.ROLE_CCDV,appUser.getRoles())){
+            Role role=new Role();
+            role.setId(AccountConst.ROLE_CCDV);
+            List<Role> roles=appUser.getRoles();
+            roles.add(role);
+            appUser.setRoles(roles);
+
+        }
+
         appUserService.save(appUser);
 
     }
+
+    public boolean checkRole(int idRole,List<Role> roles){
+        for (Role r:roles
+             ) {
+            if (r.getId()==idRole){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public  Profile  changeStatus(){
         AppUser appUser=appUserService.getAppUserByUserDetail();
