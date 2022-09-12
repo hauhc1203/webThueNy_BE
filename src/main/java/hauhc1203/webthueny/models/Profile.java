@@ -65,8 +65,7 @@ public class Profile {
 
     private long views;
 
-
-
+    private int hireTimes;
 
 
 }

@@ -7,9 +7,14 @@ import hauhc1203.webthueny.models.Profile;
 import hauhc1203.webthueny.repository.OrderRepo;
 import hauhc1203.webthueny.repository.ProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.List;
 
@@ -42,9 +47,10 @@ public class ProfileService {
         return profileRepo.save(profile);
     }
     public void edit(Profile profile){
-        UserDetails userDetails=(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        AppUser appUser=appUserService.findByUserName(userDetails.getUsername());
+
+        AppUser appUser=appUserService.getAppUserByUserDetail();
         Profile profile1=findByAppUserID(appUser.getId());
+
         profile1.setBirthDay(profile.getBirthDay());
         profile1.setFullName(profile.getFullName());
         profile1.setWeight(profile.getWeight());
@@ -82,8 +88,27 @@ public class ProfileService {
         profile.setRequirementsForHirer(rqm);
         return save(profile);
     }
+    public List<Profile> newccdv(){
+        return profileRepo.newccdv();
+    }
+    public List<Profile> vipCCdv(){
+        List<Profile> profiles=new ArrayList<>();
+        List<Long> listId=profileRepo.listIDVipCCDV();
+        for (long id:listId
+             ) {
+            profiles.add(profileRepo.findById(id));
+        }
+        return profiles;
+    }
+
+    public Page<Profile> nearCCDV(Pageable pageable){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+        Profile profile=profileRepo.findByAppUserId(appUser.getId());
+        return profileRepo.getAllByCityIdOrderByCreateDateDesc(profile.getCity().getId() ,pageable);
+    }
 
     public List<Profile> getProfile(){
+
         return profileRepo.getProfileByIsConfirm();
     }
 

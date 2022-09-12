@@ -37,4 +37,5 @@ public class ProvideServiceAPI {
     public ResponseEntity<Profile> changeStatus(){
         return new ResponseEntity<>(provideServiceS.changeStatus(),HttpStatus.OK);
     }
+
 }
