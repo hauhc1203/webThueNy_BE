@@ -33,4 +33,12 @@ public interface ProfileRepo extends CrudRepository<Profile,Long> {
 
     Page<Profile> getAllByCityIdOrderByCreateDateDesc(int id, Pageable pageable);
 
+    @Query(nativeQuery = true,value = "SELECT * FROM webthueny.profile where gender=0 and status = 5 ")
+    Page<Profile> female(Pageable pageable);
+
+    @Query(nativeQuery = true,value = "SELECT * FROM webthueny.profile where gender=1 and status = 5")
+    Page<Profile> male(Pageable pageable);
+
+
+
 }

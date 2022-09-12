@@ -7,6 +7,7 @@ import hauhc1203.webthueny.services.AppUserService;
 import hauhc1203.webthueny.services.OrderService;
 import hauhc1203.webthueny.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -104,4 +105,11 @@ public class ProfileAPI {
     public ResponseEntity<Page<Profile>> near(@RequestParam int page){
         return new ResponseEntity<>(profileService.nearCCDV(PageRequest.of(page,12)),HttpStatus.OK);
     }
+
+    @GetMapping("/showbygender")
+    public ResponseEntity<Page<Profile>> showByGender(@RequestParam int page){
+        return new ResponseEntity<>(profileService.showByGender(PageRequest.of(page,12)),HttpStatus.OK);
+    }
+
+
 }

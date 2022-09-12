@@ -108,9 +108,20 @@ public class ProfileService {
     }
 
     public List<Profile> getProfile(){
-
         return profileRepo.getProfileByIsConfirm();
     }
+
+    public Page<Profile> showByGender(Pageable pageable){
+        AppUser appUser = appUserService.getAppUserByUserDetail();
+        Profile profile = profileRepo.findByAppUserId(appUser.getId());
+        if (profile.isGender()==true){
+            return profileRepo.female(pageable);
+        } else {
+            return profileRepo.male(pageable);
+        }
+    }
+
+
 
 
 }
