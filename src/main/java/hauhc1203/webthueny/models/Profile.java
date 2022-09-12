@@ -62,6 +62,7 @@ public class Profile {
     @OneToOne
     private AppUser appUser;
 
+
     private long views;
 
 
