@@ -50,6 +50,7 @@ public class Profile {
 
     private Date createDate;
 
+
     private boolean isConfirm=false;
 
     private boolean isRegisterProvideService=false;

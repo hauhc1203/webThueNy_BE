@@ -1,5 +1,6 @@
 package hauhc1203.webthueny.models;
 
+import hauhc1203.webthueny.config.constant.OrderConst;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,6 +29,6 @@ public class Order {
 
     private double total;
 
-    private int status;
+    private int status = OrderConst.AWAITING;
 
 }

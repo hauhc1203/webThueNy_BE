@@ -1,15 +1,22 @@
 package hauhc1203.webthueny.services;
 
 import hauhc1203.webthueny.models.AppUser;
+import hauhc1203.webthueny.models.Order;
 import hauhc1203.webthueny.models.Profile;
+import hauhc1203.webthueny.repository.OrderRepo;
 import hauhc1203.webthueny.repository.ProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProfileService {
+
+    @Autowired
+    OrderRepo orderRepo;
 
     @Autowired
     ProfileRepo profileRepo;
@@ -44,5 +51,9 @@ public class ProfileService {
 
         save(profile1);
 
+    }
+
+    public List<Order> getOrderByAppUser(long id){
+        return orderRepo.OrderByAppUser(id);
     }
 }
