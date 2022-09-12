@@ -1,5 +1,6 @@
 package hauhc1203.webthueny.models;
 
+import hauhc1203.webthueny.config.constant.ProfileConst;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -50,10 +51,9 @@ public class Profile {
 
     private Date createDate;
 
+    private int isConfirm= ProfileConst.INIT_STATE;
 
-    private boolean isConfirm=false;
-
-    private boolean isRegisterProvideService=false;
+    private String messFromAdmin;
 
     @ManyToMany(fetch = FetchType.EAGER )
 

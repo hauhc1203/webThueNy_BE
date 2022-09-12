@@ -1,5 +1,6 @@
 package hauhc1203.webthueny.services;
 
+import hauhc1203.webthueny.config.constant.ProfileConst;
 import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.models.Order;
 import hauhc1203.webthueny.models.Profile;
@@ -24,15 +25,21 @@ public class ProfileService {
     @Autowired
     AppUserService appUserService;
 
+    public Profile findById(long id){
+        return profileRepo.findById(id);
+    }
+
+
 
     public Profile findByAppUserID(long id){
         return profileRepo.findByAppUserId(id);
     }
 
-    public void save (Profile profile){
 
-        Profile profile1=  profileRepo.save(profile);
-        System.out.println(profile1);
+
+    public Profile save (Profile profile){
+
+        return profileRepo.save(profile);
     }
     public void edit(Profile profile){
         UserDetails userDetails=(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -56,4 +63,29 @@ public class ProfileService {
     public List<Order> getOrderByAppUser(long id){
         return orderRepo.OrderByAppUser(id);
     }
+    public void reqVerification(long id){
+        Profile profile=profileRepo.findByAppUserId(id);
+        profile.setIsConfirm(ProfileConst.REQUEST_CONFIRM_PROFILE);
+        save(profile);
+    }
+
+    public Profile editPrice(double price){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+        Profile profile=findByAppUserID(appUser.getId());
+        profile.setCost(price);
+        return save(profile);
+    }
+
+    public Profile editrqm(String rqm){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+        Profile profile=findByAppUserID(appUser.getId());
+        profile.setRequirementsForHirer(rqm);
+        return save(profile);
+    }
+
+    public List<Profile> getProfile(){
+        return profileRepo.getProfileByIsConfirm();
+    }
+
+
 }

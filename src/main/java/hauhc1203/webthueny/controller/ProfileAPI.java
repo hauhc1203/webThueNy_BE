@@ -26,9 +26,6 @@ public class ProfileAPI {
     @Autowired
     AppUserService appUserService;
 
-    @Autowired
-    OrderService orderService;
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfile(@PathVariable long id){
@@ -74,5 +71,20 @@ public class ProfileAPI {
     @GetMapping("/orderByUser/{id}")
     public ResponseEntity<List<Order>> getByIdAppUser(@PathVariable long id){
         return new ResponseEntity<>(profileService.getOrderByAppUser(id),HttpStatus.OK);
+    }
+
+    @GetMapping("reqVerification/{id}")
+    public void reqVerification(@PathVariable long id){
+        profileService.reqVerification(id);
+    }
+
+    @PostMapping("editprice")
+    public ResponseEntity<Profile> editP(@RequestBody Profile profile){
+        return new ResponseEntity<>(profileService.editPrice(profile.getCost()),HttpStatus.OK);
+    }
+
+    @PostMapping("editrqm")
+    public ResponseEntity<Profile> editrqm(@RequestBody Profile profile){
+        return new ResponseEntity<>(profileService.editrqm(profile.getRequirementsForHirer()),HttpStatus.OK);
     }
 }

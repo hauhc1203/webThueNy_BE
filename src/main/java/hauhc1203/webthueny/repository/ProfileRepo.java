@@ -14,5 +14,7 @@ import java.util.List;
 public interface ProfileRepo extends CrudRepository<Profile,Long> {
     Profile findByAppUserId(long id);
 
-
+    Profile findById(long id);
+    @Query(nativeQuery = true,value = "select * from profile where is_confirm = 1")
+    List<Profile> getProfileByIsConfirm();
 }
