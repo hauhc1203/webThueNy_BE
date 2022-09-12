@@ -51,9 +51,7 @@ public class OrderService {
         AppUser appUser=appUserService.getAppUserByUserDetail();
         Wallet wallet=walletService.findByAppUserId(appUser.getId());
         wallet.setAmount(wallet.getAmount()-order.getTotal());
-
         walletService.save(wallet);
-
         order.setServices(services);
         order.setCreateDate(now);
         order.setAppUser(appUser);
