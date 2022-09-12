@@ -1,6 +1,7 @@
 package hauhc1203.webthueny.repository;
 
 import hauhc1203.webthueny.models.AppUser;
+import hauhc1203.webthueny.models.Profile;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -14,4 +15,6 @@ public interface AppUserRepo extends CrudRepository<AppUser,Long> {
     List<AppUser> getAppUserByRoles();
 
     AppUser findAppUsersById(long id);
+
+
 }

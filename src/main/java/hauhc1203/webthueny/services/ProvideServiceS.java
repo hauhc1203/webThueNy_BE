@@ -1,6 +1,7 @@
 package hauhc1203.webthueny.services;
 
 import hauhc1203.webthueny.config.constant.AccountConst;
+import hauhc1203.webthueny.config.constant.ProfileConst;
 import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.models.Profile;
 import hauhc1203.webthueny.models.ProvideService;
@@ -26,6 +27,10 @@ public class ProvideServiceS {
     @Autowired
     AppUserService appUserService;
 
+    public Set<ProvideService> getAllbyProfile(long id){
+        Profile profile=profileService.findByAppUserID(id);
+        return profile.getServiceList();
+    }
 
     public List<ProvideService> getAll(){
         List<ProvideService> provideServices=(List<ProvideService>) provideServiceRepo.findAll();
@@ -46,15 +51,47 @@ public class ProvideServiceS {
             serviceList.add(provideService);
         }
         profile.setServiceList(serviceList);
+        profile.setStatus(ProfileConst.STOP_PROVIDING_SERVICE);
         profileService.save(profile);
 
 
-        Role role=new Role();
-        role.setId(AccountConst.ROLE_CCDV);
-        List<Role> roles=appUser.getRoles();
-        roles.add(role);
-        appUser.setRoles(roles);
+        if (!checkRole(AccountConst.ROLE_CCDV,appUser.getRoles())){
+            Role role=new Role();
+            role.setId(AccountConst.ROLE_CCDV);
+            List<Role> roles=appUser.getRoles();
+            roles.add(role);
+            appUser.setRoles(roles);
+
+        }
+
         appUserService.save(appUser);
 
     }
+
+    public boolean checkRole(int idRole,List<Role> roles){
+        for (Role r:roles
+             ) {
+            if (r.getId()==idRole){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public  Profile  changeStatus(){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+        Profile profile=profileService.findByAppUserID(appUser.getId());
+        if (profile.getStatus()==ProfileConst.STOP_PROVIDING_SERVICE){
+            profile.setStatus(ProfileConst.START_PROVIDING_SERVICE);
+        }else {
+            profile.setStatus(ProfileConst.STOP_PROVIDING_SERVICE);
+        }
+
+       return profileService.save(profile);
+
+
+    }
+
+
 }

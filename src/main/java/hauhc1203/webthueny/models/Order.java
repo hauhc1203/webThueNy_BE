@@ -1,9 +1,12 @@
 package hauhc1203.webthueny.models;
 
+import hauhc1203.webthueny.config.constant.OrderConst;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
+
 
 @Entity
 @Data
@@ -21,13 +24,18 @@ public class Order {
     @ManyToOne
     private AppUser appUser;
 
-    private boolean doneFromUser;
+    private java.util.Date createDate;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<ProvideService> services;
+
+    private boolean doneFromUser=false;
     private String messFromUser;
-    private boolean doneFromCCDV;
+    private boolean doneFromCCDV=false;
     private String messFromCCDV;
 
     private double total;
 
-    private boolean status;
+    private int status= OrderConst.AWAITING;
 
 }

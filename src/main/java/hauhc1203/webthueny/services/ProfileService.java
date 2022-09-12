@@ -1,12 +1,20 @@
 package hauhc1203.webthueny.services;
 
+import hauhc1203.webthueny.config.constant.ProfileConst;
 import hauhc1203.webthueny.models.AppUser;
+import hauhc1203.webthueny.models.Order;
 import hauhc1203.webthueny.models.Profile;
+import hauhc1203.webthueny.repository.OrderRepo;
 import hauhc1203.webthueny.repository.ProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.List;
 
@@ -14,25 +22,35 @@ import java.util.List;
 public class ProfileService {
 
     @Autowired
+    OrderRepo orderRepo;
+
+    @Autowired
     ProfileRepo profileRepo;
 
     @Autowired
     AppUserService appUserService;
+
+    public Profile findById(long id){
+        return profileRepo.findById(id);
+    }
+
 
 
     public Profile findByAppUserID(long id){
         return profileRepo.findByAppUserId(id);
     }
 
-    public void save (Profile profile){
 
-        Profile profile1=  profileRepo.save(profile);
-        System.out.println(profile1);
+
+    public Profile save (Profile profile){
+
+        return profileRepo.save(profile);
     }
     public void edit(Profile profile){
-        UserDetails userDetails=(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        AppUser appUser=appUserService.findByUserName(userDetails.getUsername());
+
+        AppUser appUser=appUserService.getAppUserByUserDetail();
         Profile profile1=findByAppUserID(appUser.getId());
+
         profile1.setBirthDay(profile.getBirthDay());
         profile1.setFullName(profile.getFullName());
         profile1.setWeight(profile.getWeight());
@@ -47,7 +65,59 @@ public class ProfileService {
         save(profile1);
 
     }
-    public List<Profile>showProfileView(){
-        return profileRepo.getProfileByViews();
+
+    public List<Order> getOrderByAppUser(long id){
+        return orderRepo.OrderByAppUser(id);
     }
+    public void reqVerification(long id){
+        Profile profile=profileRepo.findByAppUserId(id);
+        profile.setIsConfirm(ProfileConst.REQUEST_CONFIRM_PROFILE);
+        save(profile);
+    }
+
+    public Profile editPrice(double price){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+        Profile profile=findByAppUserID(appUser.getId());
+        profile.setCost(price);
+        return save(profile);
+    }
+
+    public Profile editrqm(String rqm){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+        Profile profile=findByAppUserID(appUser.getId());
+        profile.setRequirementsForHirer(rqm);
+        return save(profile);
+    }
+    public List<Profile> newccdv(){
+        return profileRepo.newccdv();
+    }
+    public List<Profile> vipCCdv(){
+        List<Profile> profiles=new ArrayList<>();
+        List<Long> listId=profileRepo.listIDVipCCDV();
+        for (long id:listId
+             ) {
+            profiles.add(profileRepo.findById(id));
+        }
+        return profiles;
+    }
+
+    public Page<Profile> nearCCDV(Pageable pageable){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+        Profile profile=profileRepo.findByAppUserId(appUser.getId());
+        return profileRepo.getAllByCityIdOrderByCreateDateDesc(profile.getCity().getId() ,pageable);
+    }
+
+    public List<Profile> getProfile(){
+
+        return profileRepo.getProfileByIsConfirm();
+    }
+    public List<Profile>getUserBoy(){
+        return profileRepo.showListBoy();
+    }
+    public List<Profile>getUserGirl(){
+        return profileRepo.showListGirl();
+    }
+
+
+
 }

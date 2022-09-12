@@ -72,7 +72,7 @@ public class MailService {
 //
 //        }
 
-    public void sendMail( AppUser appUser) {
+    public boolean sendMail( AppUser appUser) {
 
         String fromAddress = "hch.123.shop@gmail.com";
         String content ="Xin chào, [[name]]<br>" +
@@ -94,10 +94,13 @@ public class MailService {
             helper.setText(content, true);
 
             mailSender.send(message);
+            return true;
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+           return false;
         } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+           return false;
+        }catch (Exception e){
+            return false;
         }
     }
 
