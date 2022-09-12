@@ -5,9 +5,14 @@ import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.models.Profile;
 import hauhc1203.webthueny.repository.ProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProfileService {
@@ -66,5 +71,23 @@ public class ProfileService {
         Profile profile=findByAppUserID(appUser.getId());
         profile.setRequirementsForHirer(rqm);
         return save(profile);
+    }
+    public List<Profile> newccdv(){
+        return profileRepo.newccdv();
+    }
+    public List<Profile> vipCCdv(){
+        List<Profile> profiles=new ArrayList<>();
+        List<Long> listId=profileRepo.listIDVipCCDV();
+        for (long id:listId
+             ) {
+            profiles.add(profileRepo.findById(id));
+        }
+        return profiles;
+    }
+
+    public Page<Profile> nearCCDV(Pageable pageable){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+        Profile profile=profileRepo.findByAppUserId(appUser.getId());
+        return profileRepo.getAllByCityIdOrderByCreateDateDesc(profile.getCity().getId() ,pageable);
     }
 }

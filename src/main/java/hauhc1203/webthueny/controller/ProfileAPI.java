@@ -5,11 +5,15 @@ import hauhc1203.webthueny.models.Profile;
 import hauhc1203.webthueny.services.AppUserService;
 import hauhc1203.webthueny.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/profile")
@@ -24,7 +28,10 @@ public class ProfileAPI {
 
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfile(@PathVariable long id){
-        return new ResponseEntity<>(profileService.findByAppUserID(id), HttpStatus.OK);
+        Profile profile=profileService.findByAppUserID(id);
+        profile.setViews(profile.getViews()+1);
+        profileService.save(profile);
+        return new ResponseEntity<>(profile, HttpStatus.OK);
     }
     @PostMapping("/img1")
     public  void saveIMG1(@RequestBody String img1){
@@ -76,5 +83,17 @@ public class ProfileAPI {
     @PostMapping("editrqm")
     public ResponseEntity<Profile> editrqm(@RequestBody Profile profile){
         return new ResponseEntity<>(profileService.editrqm(profile.getRequirementsForHirer()),HttpStatus.OK);
+    }
+    @GetMapping("newccdv")
+    public ResponseEntity<List<Profile>> newccdv(){
+        return new ResponseEntity<>(profileService.newccdv(),HttpStatus.OK);
+    }
+    @GetMapping("vipccdv")
+    public ResponseEntity<List<Profile>> vipccdv(){
+        return new ResponseEntity<>(profileService.vipCCdv(),HttpStatus.OK);
+    }
+    @GetMapping("nearccdv")
+    public ResponseEntity<Page<Profile>> near(@RequestParam int page){
+        return new ResponseEntity<>(profileService.nearCCDV(PageRequest.of(page,12)),HttpStatus.OK);
     }
 }
