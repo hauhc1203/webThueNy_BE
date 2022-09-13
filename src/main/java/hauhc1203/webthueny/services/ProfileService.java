@@ -2,6 +2,7 @@ package hauhc1203.webthueny.services;
 
 import hauhc1203.webthueny.config.constant.ProfileConst;
 import hauhc1203.webthueny.models.AppUser;
+import hauhc1203.webthueny.models.City;
 import hauhc1203.webthueny.models.Order;
 import hauhc1203.webthueny.models.Profile;
 import hauhc1203.webthueny.repository.OrderRepo;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,7 +123,13 @@ public class ProfileService {
         }
     }
 
+    public List<Profile> search(String name, String birthday, Boolean gender, long city, long views){
+        return  profileRepo.search(name,birthday,gender,city,views);
+    }
 
+    public List<Profile> getALl(){
+        return (List<Profile>) profileRepo.findAll();
+    }
 
 
 }

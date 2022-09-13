@@ -29,6 +29,11 @@ public class ProfileAPI {
     @Autowired
     AppUserService appUserService;
 
+    @GetMapping
+    public ResponseEntity<List<Profile>> getAll(){
+        return new ResponseEntity<>(profileService.getALl(),HttpStatus.OK);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfile(@PathVariable long id){
@@ -109,6 +114,15 @@ public class ProfileAPI {
     @GetMapping("/showbygender")
     public ResponseEntity<Page<Profile>> showByGender(@RequestParam int page){
         return new ResponseEntity<>(profileService.showByGender(PageRequest.of(page,12)),HttpStatus.OK);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<Profile>> search(@RequestBody Profile profile){
+        String year = "";
+    if (profile.getBirthDay() != null){
+    year = "%" + String.valueOf(profile.getBirthDay().getYear()) + "%";
+    }
+        return new ResponseEntity<>(profileService.search(profile.getFullName(),year,profile.isGender(),profile.getCity().getId(),profile.getViews()),HttpStatus.OK);
     }
 
 

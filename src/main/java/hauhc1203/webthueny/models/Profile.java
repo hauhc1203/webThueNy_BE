@@ -1,9 +1,11 @@
 package hauhc1203.webthueny.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import hauhc1203.webthueny.config.constant.ProfileConst;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -16,7 +18,8 @@ public class Profile {
 
     private String fullName;
 
-    private java.sql.Date birthDay;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthDay;
 
     @ManyToOne
     private City city ;
