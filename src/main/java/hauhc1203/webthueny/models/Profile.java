@@ -68,4 +68,6 @@ public class Profile {
     private int hireTimes;
 
 
+
+
 }

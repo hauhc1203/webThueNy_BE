@@ -32,9 +32,9 @@ public interface ProfileRepo extends CrudRepository<Profile,Long> {
     List<Long> listIDVipCCDV();
 
     Page<Profile> getAllByCityIdOrderByCreateDateDesc(int id, Pageable pageable);
-    @Query(nativeQuery = true,value = "SELECT * FROM profile where gender = 0 limit 8 ")
+    @Query(nativeQuery = true,value = "SELECT * FROM  profile join app_user on profile.app_user_id=app_user.id join app_user_roles on app_user.id=app_user_roles.app_user_id join role on app_user_roles.roles_id=role.id  where gender =0 and roles_id=3 order by hire_times desc limit 8   ")
     List<Profile>showListGirl();
-    @Query(nativeQuery = true,value = "SELECT * FROM profile where gender = 1 limit 4 ")
+    @Query(nativeQuery = true,value = "SELECT * FROM  profile join app_user on profile.app_user_id=app_user.id join app_user_roles on app_user.id=app_user_roles.app_user_id join role on app_user_roles.roles_id=role.id  where gender =1 and roles_id=3 order by hire_times desc limit 4 ")
     List<Profile>showListBoy();
 
 
