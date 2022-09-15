@@ -67,7 +67,7 @@ public class AppUserService implements UserDetailsService {
 
         Wallet wallet=new Wallet();
         wallet.setAppUser(appUser);
-        wallet.setAmount(1000000000);
+        wallet.setAmount(0);
         walletService.save(wallet);
     }
     public AppUser save(AppUser appUser){
