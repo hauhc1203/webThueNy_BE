@@ -3,6 +3,7 @@ package hauhc1203.webthueny.controller;
 import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.models.Order;
 import hauhc1203.webthueny.models.Profile;
+import hauhc1203.webthueny.models.Search;
 import hauhc1203.webthueny.services.AppUserService;
 import hauhc1203.webthueny.services.OrderService;
 import hauhc1203.webthueny.services.ProfileService;
@@ -30,8 +31,8 @@ public class ProfileAPI {
     AppUserService appUserService;
 
     @GetMapping
-    public ResponseEntity<List<Profile>> getAll(){
-        return new ResponseEntity<>(profileService.getALl(),HttpStatus.OK);
+    public ResponseEntity<List<Profile>> getAllccdv(){
+        return new ResponseEntity<>(profileService.ccdvGetAll(),HttpStatus.OK);
     }
 
 
@@ -117,12 +118,28 @@ public class ProfileAPI {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<Profile>> search(@RequestBody Profile profile){
-        String year = "";
-    if (profile.getBirthDay() != null){
-    year = "%" + String.valueOf(profile.getBirthDay().getYear()) + "%";
-    }
-        return new ResponseEntity<>(profileService.search(profile.getFullName(),year,profile.isGender(),profile.getCity().getId(),profile.getViews()),HttpStatus.OK);
+    public ResponseEntity<List<Profile>> search(@RequestBody Search search){
+        int minA;
+        int maxA;
+        String age1=search.getMinAgeAndMaxAge();
+        if (age1==""){
+            age1=null;
+        }
+
+        if(age1!=null){
+            String [] age=age1.split("-");
+            minA= Integer.parseInt(age[0]);
+            maxA= Integer.parseInt(age[1]);
+        }else {
+            minA=0;
+            maxA=150;
+        }
+
+
+
+        System.out.println(search);
+        return new ResponseEntity<>(profileService.search(search.getFullName(),minA,maxA,search.getGender(),search.getIdCity(),search.getViews(),search.getHireTimes()),HttpStatus.OK);
+//    return null;
     }
 
 

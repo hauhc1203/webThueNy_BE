@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,6 +116,7 @@ public class ProfileService {
     public Page<Profile> showByGender(Pageable pageable){
         AppUser appUser = appUserService.getAppUserByUserDetail();
         Profile profile = profileRepo.findByAppUserId(appUser.getId());
+
         if (profile.isGender()==true){
             return profileRepo.female(pageable);
         } else {
@@ -123,12 +124,39 @@ public class ProfileService {
         }
     }
 
-    public List<Profile> search(String name, String birthday, Boolean gender, long city, long views){
-        return  profileRepo.search(name,birthday,gender,city,views);
+    public List<Profile> search(String name,int minAge,int maxAge, String gender, String city, String views,String hireTimes){
+        Boolean gender1;
+        if(name==""){
+            name=null;
+        }else {
+            name="%"+name+"%";
+        }
+        if(gender==""||gender==null){
+            gender1=null;
+        }else {
+             gender1= Boolean.parseBoolean(gender);
+        }
+
+        if(city==""){
+            city=null;
+        } if(views==""){
+            views=null;
+        } if(hireTimes==""){
+            hireTimes=null;
+        }
+        Date date=new Date();
+        int year=date.getYear()+1900;
+            int minY=year-maxAge;
+            int maxY=year-minAge;
+        return  profileRepo.search(name,String.valueOf(minY),String.valueOf(maxY),gender1,city,views,hireTimes);
     }
 
     public List<Profile> getALl(){
         return (List<Profile>) profileRepo.findAll();
+    }
+
+    public List<Profile> ccdvGetAll(){
+        return profileRepo.ccdv();
     }
 
 

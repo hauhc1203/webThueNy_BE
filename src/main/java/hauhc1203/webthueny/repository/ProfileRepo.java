@@ -43,15 +43,21 @@ public interface ProfileRepo extends CrudRepository<Profile,Long> {
 
     @Query(nativeQuery = true,value = "select *\n" +
             "from profile\n" +
-            "where (:full_name ='' or full_name like "+"%"+":full_name"+"%)\n" +
-            "  and (:birth_day ='' or birth_day like "+"%"+":birth_day"+"%)\n" +
-            "  and (:gender = '' or gender = :gender)\n" +
-            "  and (:city_id ='' or city_id = :city_id)\n" +
-            "  and (:views ='' or views >= :views);")
+            "where (:full_name is null or full_name like "+":full_name)\n" +
+            "  and year(birth_day) between  :minage and   :maxage\n" +
+            "  and (:gender  is null or gender =:gender)\n" +
+            "  and (:city_id  is null or city_id =:city_id)\n" +
+            "  and (:views is null or views >=:views)\n" +
+            "and (:hire_times is null or  hire_times>=:hire_times);"
+    )
     List<Profile> search (@Param("full_name")String full_name,
-                          @Param("birth_day")String birth_day,
+                          @Param("minage")String minage,
+                          @Param("maxage")String maxage,
                           @Param("gender")Boolean gender,
-                          @Param("city_id") long city_id,
-                          @Param("views")long views);
+                          @Param("city_id") String city_id,
+                          @Param("views")String views,
+                          @Param("hire_times")String hire_times);
 
+    @Query(nativeQuery = true,value = "SELECT * FROM webthueny.profile where status = 5 order by hire_times desc")
+    List<Profile> ccdv();
 }
