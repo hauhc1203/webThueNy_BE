@@ -110,7 +110,18 @@ public class ProfileAPI {
     @GetMapping("nearccdv")
     public ResponseEntity<Page<Profile>> near(@RequestParam int page){
         return new ResponseEntity<>(profileService.nearCCDV(PageRequest.of(page,12)),HttpStatus.OK);
+
     }
+    @GetMapping("/showUserBoy")
+    public ResponseEntity<List<Profile>>showUserBoy(){
+        return new ResponseEntity<>(profileService.getUserBoy(),HttpStatus.OK);
+    }
+    @GetMapping("/showUserGirl")
+    public ResponseEntity<List<Profile>>showUserGirl(){
+        return new ResponseEntity<>(profileService.getUserGirl(),HttpStatus.OK);
+    }
+
+
 
     @GetMapping("/showbygender")
     public ResponseEntity<Page<Profile>> showByGender(@RequestParam int page){

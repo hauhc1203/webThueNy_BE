@@ -112,6 +112,14 @@ public class ProfileService {
     public List<Profile> getProfile(){
         return profileRepo.getProfileByIsConfirm();
     }
+    public List<Profile>getUserBoy(){
+        return profileRepo.showListBoy();
+    }
+    public List<Profile>getUserGirl(){
+        return profileRepo.showListGirl();
+    }
+
+
 
     public Page<Profile> showByGender(Pageable pageable){
         AppUser appUser = appUserService.getAppUserByUserDetail();
