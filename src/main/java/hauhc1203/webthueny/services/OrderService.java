@@ -56,7 +56,10 @@ public class OrderService {
         order.setCreateDate(now);
         order.setAppUser(appUser);
         save(order);
+    }
 
+    public List<Order> orderSuccess(){
+        return orderRepo.OrderSuccess();
     }
 
 

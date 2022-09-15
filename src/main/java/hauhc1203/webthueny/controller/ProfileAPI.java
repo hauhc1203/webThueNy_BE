@@ -3,10 +3,12 @@ package hauhc1203.webthueny.controller;
 import hauhc1203.webthueny.models.AppUser;
 import hauhc1203.webthueny.models.Order;
 import hauhc1203.webthueny.models.Profile;
+import hauhc1203.webthueny.models.Search;
 import hauhc1203.webthueny.services.AppUserService;
 import hauhc1203.webthueny.services.OrderService;
 import hauhc1203.webthueny.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +29,11 @@ public class ProfileAPI {
     ProfileService profileService;
     @Autowired
     AppUserService appUserService;
+
+    @GetMapping
+    public ResponseEntity<List<Profile>> getAllccdv(){
+        return new ResponseEntity<>(profileService.ccdvGetAll(),HttpStatus.OK);
+    }
 
 
     @GetMapping("/{id}")
@@ -104,4 +111,31 @@ public class ProfileAPI {
     public ResponseEntity<Page<Profile>> near(@RequestParam int page){
         return new ResponseEntity<>(profileService.nearCCDV(PageRequest.of(page,12)),HttpStatus.OK);
     }
+
+    @GetMapping("/showbygender")
+    public ResponseEntity<Page<Profile>> showByGender(@RequestParam int page){
+        return new ResponseEntity<>(profileService.showByGender(PageRequest.of(page,12)),HttpStatus.OK);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<Profile>> search(@RequestBody Search search){
+        int minA;
+        int maxA;
+        String age1=search.getMinAgeAndMaxAge();
+        if (age1==""){
+            age1=null;
+        }
+        if(age1!=null){
+            String [] age=age1.split("-");
+            minA= Integer.parseInt(age[0]);
+            maxA= Integer.parseInt(age[1]);
+        }else {
+            minA=0;
+            maxA=150;
+        }
+
+        return new ResponseEntity<>(profileService.search(search.getFullName(),minA,maxA,search.getGender(),search.getIdCity(),search.getViews(),search.getHireTimes()),HttpStatus.OK);
+    }
+
+
 }

@@ -13,4 +13,5 @@ public class Wallet {
     @OneToOne
     AppUser appUser;
     private double amount;
+
 }

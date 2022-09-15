@@ -112,5 +112,10 @@ public class AdminAPI {
         appUserService.save(appUser);
     }
 
+    @GetMapping("/ordersuccess")
+    public ResponseEntity<List<Order>> orderSuccess(){
+        return new ResponseEntity<>(orderService.orderSuccess(),HttpStatus.OK);
+    }
+
 
 }
