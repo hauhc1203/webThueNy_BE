@@ -1,9 +1,7 @@
 package hauhc1203.webthueny.services;
 
-import hauhc1203.webthueny.models.AppUser;
-import hauhc1203.webthueny.models.Order;
-import hauhc1203.webthueny.models.ProvideService;
-import hauhc1203.webthueny.models.Wallet;
+import hauhc1203.webthueny.config.constant.OrderConst;
+import hauhc1203.webthueny.models.*;
 import hauhc1203.webthueny.repository.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +18,8 @@ public class OrderService {
     @Autowired
     OrderRepo orderRepo;
     @Autowired
+    ProfileService profileService;
+    @Autowired
     AppUserService appUserService;
     @Autowired
     ProvideServiceS provideServiceS;
@@ -33,8 +33,8 @@ public class OrderService {
         return orderRepo.findOrderById(id);
     }
 
-    public void save(Order order){
-        orderRepo.save(order);
+    public Order save(Order order){
+       return orderRepo.save(order);
     }
 
     public void create(Order order,String s){
@@ -57,6 +57,54 @@ public class OrderService {
         order.setAppUser(appUser);
         save(order);
 
+    }
+
+
+    public Page<Order> getbyu(Pageable pageable){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+      return   orderRepo.getAllByAppUserIdOrderByStatusAsc(appUser.getId(),pageable);
+    }
+    public Page<Order> getbyp(Pageable pageable){
+        AppUser appUser=appUserService.getAppUserByUserDetail();
+        Profile profile=profileService.findByAppUserID(appUser.getId());
+        return   orderRepo.getAllByProfileIdOrderByStatusAsc(profile.getId(),pageable);
+    }
+    public Order acceptOrder(Order order){
+        Order order1=orderRepo.findOrderById(order.getId());
+        order1.setMessFromCCDV(order.getMessFromCCDV());
+        order1.setStatus(OrderConst.ACCEPTED);
+        return save(order1);
+    }
+    public Order dOrder(Order order){
+        Order order1=orderRepo.findOrderById(order.getId());
+        order1.setMessFromCCDV(order.getMessFromCCDV());
+        order1.setStatus(OrderConst.ACCEPTED);
+        return save(order1);
+    }
+    public Order cOrder(long id){
+        Order order=orderRepo.findOrderById(id);
+        order.setStatus(OrderConst.CANCEL);
+        return save(order);
+    }
+    public Order dfu(long id){
+        Order order=orderRepo.findOrderById(id);
+        order.setDoneFromUser(true);
+        if (order.isDoneFromCCDV()){
+            order.setStatus(OrderConst.DONE);
+        }else {
+            order.setStatus(OrderConst.WAIT_DONE);
+        }
+        return save(order);
+    }
+    public Order dfc(long id){
+        Order order=orderRepo.findOrderById(id);
+        order.setDoneFromCCDV(true);
+        if (order.isDoneFromUser()){
+            order.setStatus(OrderConst.DONE);
+        }else {
+            order.setStatus(OrderConst.WAIT_DONE);
+        }
+        return save(order);
     }
 
 }

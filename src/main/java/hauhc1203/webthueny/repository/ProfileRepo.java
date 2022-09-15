@@ -28,9 +28,9 @@ public interface ProfileRepo extends CrudRepository<Profile,Long> {
     List<Profile> newccdv();
 //    void  getProfileByIsConfirm(int i);
 
-    @Query(nativeQuery = true,value = "SELECT p.id FROM webthueny.profile AS p JOIN app_user AS a WHERE  p.app_user_id=a.id and a.vip=true ORDER BY p.views LIMIT 6;")
+    @Query(nativeQuery = true,value = "SELECT p.id FROM webthueny.profile AS p JOIN app_user AS a WHERE  p.app_user_id=a.id and a.vip=true and p.status=5 ORDER BY p.views LIMIT 6;")
     List<Long> listIDVipCCDV();
 
-    Page<Profile> getAllByCityIdOrderByCreateDateDesc(int id, Pageable pageable);
+    Page<Profile> getAllByStatusAndCityIdOrderByCreateDateDesc(int status,int id, Pageable pageable);
 
 }

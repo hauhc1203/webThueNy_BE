@@ -47,7 +47,6 @@ public class AdminAPI {
 
     @GetMapping("/ban/{id}")
     public ResponseEntity<AppUser> banUser(@PathVariable long id){
-        System.out.println("ddddddddddddddddddddddddd" +id);
         AppUser appUser = appUserService.findById(id);
         appUser.setStatus(AccountConst.BANED);
         return new ResponseEntity<>(appUserService.save(appUser),HttpStatus.OK);

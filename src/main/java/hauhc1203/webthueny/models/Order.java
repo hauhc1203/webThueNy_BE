@@ -28,6 +28,10 @@ public class Order {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<ProvideService> services;
+//    @OneToOne
+//    private Feedback feedBack;
+//    @OneToOne
+//    private Feedback feedBackFromCCDV;
 
     private boolean doneFromUser=false;
     private String messFromUser;
@@ -37,5 +41,7 @@ public class Order {
     private double total;
 
     private int status= OrderConst.AWAITING;
+
+    private int process;//= end
 
 }

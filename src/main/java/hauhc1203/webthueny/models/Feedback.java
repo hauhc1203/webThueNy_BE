@@ -13,11 +13,10 @@ public class Feedback {
     @ManyToOne
     private AppUser from;
     @ManyToOne
-    private AppUser about;
-
+    private Order order;
     private String content;
-
-    private int status;
+    private int isGoodFeedBack;
+    private boolean isConfirm=true;
 
 }
 

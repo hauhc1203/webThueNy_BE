@@ -104,13 +104,11 @@ public class ProfileService {
     public Page<Profile> nearCCDV(Pageable pageable){
         AppUser appUser=appUserService.getAppUserByUserDetail();
         Profile profile=profileRepo.findByAppUserId(appUser.getId());
-        return profileRepo.getAllByCityIdOrderByCreateDateDesc(profile.getCity().getId() ,pageable);
+        return profileRepo.getAllByStatusAndCityIdOrderByCreateDateDesc(5,profile.getCity().getId() ,pageable);
     }
 
     public List<Profile> getProfile(){
 
         return profileRepo.getProfileByIsConfirm();
     }
-
-
 }
