@@ -78,7 +78,7 @@ public class OrderService {
     public Order dOrder(Order order){
         Order order1=orderRepo.findOrderById(order.getId());
         order1.setMessFromCCDV(order.getMessFromCCDV());
-        order1.setStatus(OrderConst.ACCEPTED);
+        order1.setStatus(OrderConst.REFUSED);
         return save(order1);
     }
     public Order cOrder(long id){
