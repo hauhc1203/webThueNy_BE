@@ -47,7 +47,6 @@ public class AdminAPI {
 
     @GetMapping("/ban/{id}")
     public ResponseEntity<AppUser> banUser(@PathVariable long id){
-        System.out.println("ddddddddddddddddddddddddd" +id);
         AppUser appUser = appUserService.findById(id);
         appUser.setStatus(AccountConst.BANED);
         return new ResponseEntity<>(appUserService.save(appUser),HttpStatus.OK);
@@ -111,6 +110,11 @@ public class AdminAPI {
         roles.add(role);
         appUser.setRoles(roles);
         appUserService.save(appUser);
+    }
+
+    @GetMapping("/ordersuccess")
+    public ResponseEntity<List<Order>> orderSuccess(){
+        return new ResponseEntity<>(orderService.orderSuccess(),HttpStatus.OK);
     }
 
 

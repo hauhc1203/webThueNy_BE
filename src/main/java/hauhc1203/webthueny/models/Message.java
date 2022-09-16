@@ -20,8 +20,6 @@ public class Message {
     private String content;
 
     private Date time;
-    @OneToOne
-    private RoomChat roomChat;
 
 }
 

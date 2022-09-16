@@ -6,17 +6,18 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Feedback {
+@Table(name = "reportsss")
+public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
     private AppUser from;
     @ManyToOne
-    private Order order;
-    private String content;
-    private int isGoodFeedBack;
-    private boolean isConfirm=true;
+    private Order about;
+    private String problem;
+    private String reason;
+    private boolean isConfirm=false;
+
 
 }
-
