@@ -24,7 +24,7 @@ public class FeedBackAPI {
     }
 
     @GetMapping("/{orderid}")
-    public ResponseEntity<List<Feedback>> create(@PathVariable long orderid){
+    public ResponseEntity<List<Feedback>> getfb(@PathVariable long orderid){
         return new ResponseEntity<>(feedBackService.findByOrder(orderid), HttpStatus.OK);
     }
 
