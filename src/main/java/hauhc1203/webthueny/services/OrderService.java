@@ -112,6 +112,7 @@ public class OrderService {
         return save(order);
     }
     public void payment( Order order){
+
         Wallet wallet=walletService.findByAppUserId(order.getProfile().getAppUser().getId());
         wallet.setAmount(wallet.getAmount()+order.getTotal());
         walletService.save(wallet);
