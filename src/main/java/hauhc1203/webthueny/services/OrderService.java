@@ -58,5 +58,8 @@ public class OrderService {
         save(order);
 
     }
+    public List<Order>showBadOrder(){
+       return orderRepo.ShowBadOrder();
+    }
 
 }

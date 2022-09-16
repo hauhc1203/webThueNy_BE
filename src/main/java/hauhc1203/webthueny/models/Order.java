@@ -37,5 +37,6 @@ public class Order {
     private double total;
 
     private int status= OrderConst.AWAITING;
+    private int process;
 
 }

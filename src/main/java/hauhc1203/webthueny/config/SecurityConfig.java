@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login","/register","/home","/admin/**","/profile/**").permitAll()
+        http.authorizeRequests().antMatchers("/login","/register","/home","/admin/**","/profile/**","/order/**","/chat.sendMessage/**","/gkz-stomp-endpoint/websocket/**").permitAll()
                 .and().authorizeRequests().anyRequest().authenticated()
                 .and().csrf().disable();
 

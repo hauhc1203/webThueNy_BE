@@ -10,7 +10,7 @@ import java.util.Date;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long idMessage;
     @ManyToOne
     private AppUser sender;
 
@@ -20,6 +20,8 @@ public class Message {
     private String content;
 
     private Date time;
+    @OneToOne
+    private RoomChat roomChat;
 
 }
 
