@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
     }
 
+
     // xắc thực
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
