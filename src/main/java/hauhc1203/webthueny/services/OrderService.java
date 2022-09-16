@@ -114,7 +114,7 @@ public class OrderService {
     public void payment( Order order){
 
         Wallet wallet=walletService.findByAppUserId(order.getProfile().getAppUser().getId());
-        wallet.setAmount(wallet.getAmount()+order.getTotal());
+        wallet.setAmount(wallet.getAmount()+order.getTotal()*80/100);
         walletService.save(wallet);
     }
 
