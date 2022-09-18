@@ -1,6 +1,4 @@
 package hauhc1203.webthueny.controller;
-
-import hauhc1203.webthueny.models.Feedback;
 import hauhc1203.webthueny.models.Order;
 import hauhc1203.webthueny.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +55,10 @@ public class OrderAPI {
     public ResponseEntity<Order> cancelO(@PathVariable long   id){
         return  new ResponseEntity(orderService.cOrder(id ),HttpStatus.OK);
     }
+//    @GetMapping ("orderDetail/{idUser}/{idOrder}")
+//    public ResponseEntity<Order>showCT(@PathVariable("idUser") long idUser,@PathVariable("idOrder") long idOrder){
+//        return new ResponseEntity<>(orderService.findByIdOrder(idUser,idOrder),HttpStatus.OK);
+//    }
 
 
 }

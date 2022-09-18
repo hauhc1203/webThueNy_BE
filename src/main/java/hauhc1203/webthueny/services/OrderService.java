@@ -117,6 +117,9 @@ public class OrderService {
         wallet.setAmount(wallet.getAmount()+order.getTotal()*80/100);
         walletService.save(wallet);
     }
+    public Order findByIdOrder(long idUser, long idOrder){
+        return orderRepo.showCT(idUser,idOrder);
+    }
 
 
 }

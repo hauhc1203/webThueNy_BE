@@ -24,4 +24,10 @@ public interface OrderRepo extends PagingAndSortingRepository<Order,Long> {
     Page<Order> getAllByAppUserIdOrderByStatusAsc(long id, Pageable pageable);
     Page<Order> getAllByProfileIdOrderByStatusAsc(long id, Pageable pageable);
 
+    @Query(nativeQuery = true,value = "select * from ordersss where app_user_id=:idUser and id =:idOrder ")
+    Order showCT(@Param("idUser")long idUser,@Param("idOrder")long idOrder);
+
+
+
+
 }

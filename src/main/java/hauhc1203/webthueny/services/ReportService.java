@@ -1,12 +1,15 @@
 package hauhc1203.webthueny.services;
 
 import hauhc1203.webthueny.models.AppUser;
+import hauhc1203.webthueny.models.Feedback;
 import hauhc1203.webthueny.models.Report;
 import hauhc1203.webthueny.repository.ReportRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ReportService {
@@ -34,7 +37,18 @@ public class ReportService {
         return  reportRepo.findByFromIdAndAboutId(appUser.getId(),idO);
 
     }
+    public List<Report>reportNotConfirm (){
+        return reportRepo.showReportBad();
 
+    }
+    public List<Report>reportConfirm(){
+        return reportRepo.showReportConfirm();
+    }
+
+public Report showDetailReport(long id){
+        return reportRepo.findReportById(id);
+
+}
 
 }
 

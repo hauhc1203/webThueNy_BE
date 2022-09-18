@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("feedback")
+@RequestMapping("/feedback")
 public class FeedBackAPI {
     @Autowired
     FeedBackService feedBackService;
@@ -27,6 +27,7 @@ public class FeedBackAPI {
     public ResponseEntity<List<Feedback>> getfb(@PathVariable long orderid){
         return new ResponseEntity<>(feedBackService.findByOrder(orderid), HttpStatus.OK);
     }
+
 
 
 }
