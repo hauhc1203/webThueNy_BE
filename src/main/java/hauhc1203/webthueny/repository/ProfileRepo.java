@@ -55,7 +55,8 @@ public interface ProfileRepo extends CrudRepository<Profile,Long> {
             "  and (:gender  is null or gender =:gender)\n" +
             "  and (:city_id  is null or city_id =:city_id)\n" +
             "  and (:views is null or views >=:views)\n" +
-            "and (:hire_times is null or  hire_times>=:hire_times);"
+            "and (:hire_times is null or  hire_times>=:hire_times)"+
+            "and status = 5;"
     )
     List<Profile> search (@Param("full_name")String full_name,
                           @Param("minage")String minage,

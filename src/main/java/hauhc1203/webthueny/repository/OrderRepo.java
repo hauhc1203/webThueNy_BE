@@ -24,4 +24,7 @@ public interface OrderRepo extends PagingAndSortingRepository<Order,Long> {
     Page<Order> getAllByAppUserIdOrderByStatusAsc(long id, Pageable pageable);
     Page<Order> getAllByProfileIdOrderByStatusAsc(long id, Pageable pageable);
 
+    @Query(nativeQuery = true,value = "select distinct ordersss.id from ordersss join reportsss on ordersss.id = reportsss.about_id ")
+    List<Long> listid();
+
 }

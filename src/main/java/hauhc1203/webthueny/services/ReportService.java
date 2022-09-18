@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReportService {
     @Autowired
@@ -33,6 +35,10 @@ public class ReportService {
 
         return  reportRepo.findByFromIdAndAboutId(appUser.getId(),idO);
 
+    }
+
+    public List<Report> getRpByOrder(long id){
+        return reportRepo.findByAboutId(id);
     }
 
 

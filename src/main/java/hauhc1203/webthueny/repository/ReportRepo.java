@@ -6,8 +6,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
+
 public interface ReportRepo extends PagingAndSortingRepository<Report,Long> {
     @Query(nativeQuery = true,value = "select  * from reportsss")
     Page<Report> findAllR(Pageable pageable);
     Report findByFromIdAndAboutId(long idU,long idO);
+
+    List<Report> findByAboutId(long id);
+
+
 }
