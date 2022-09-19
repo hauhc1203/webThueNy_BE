@@ -3,9 +3,11 @@ package hauhc1203.webthueny.controller;
 import hauhc1203.webthueny.config.constant.AccountConst;
 import hauhc1203.webthueny.config.constant.ProfileConst;
 import hauhc1203.webthueny.models.*;
+import hauhc1203.webthueny.repository.ReportRepo;
 import hauhc1203.webthueny.services.AppUserService;
 import hauhc1203.webthueny.services.OrderService;
 import hauhc1203.webthueny.services.ProfileService;
+import hauhc1203.webthueny.services.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +23,9 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/admin")
 public class AdminAPI {
+    @Autowired
+    ReportService reportService;
+
     @Autowired
     ProfileService profileService;
     @Autowired
@@ -115,6 +120,16 @@ public class AdminAPI {
     @GetMapping("/ordersuccess")
     public ResponseEntity<List<Order>> orderSuccess(){
         return new ResponseEntity<>(orderService.orderSuccess(),HttpStatus.OK);
+    }
+
+    @GetMapping("/orderbad")
+    public ResponseEntity<List<Order>> orderBad(){
+        return new ResponseEntity<>(orderService.getAllbadO(),HttpStatus.OK);
+    }
+
+    @GetMapping("/orderbad/{id}")
+    public ResponseEntity<List<Report>> rpByOrder(@PathVariable long id){
+        return new ResponseEntity<>(reportService.getRpByOrder(id),HttpStatus.OK);
     }
 
 
