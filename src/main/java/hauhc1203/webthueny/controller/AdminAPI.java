@@ -21,6 +21,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/admin")
 public class AdminAPI {
+    static Order oderBad;
     @Autowired
     ProfileService profileService;
     @Autowired
@@ -80,9 +81,13 @@ public class AdminAPI {
 
     @GetMapping("/showOder/{id}")
     public ResponseEntity<Order>  showOderDetail(@PathVariable long id){
+        oderBad=orderService.findById(id);
         return new ResponseEntity<>(orderService.findById(id),HttpStatus.OK);
     }
-
+@GetMapping("/showOderBad")
+public ResponseEntity<Order>  showOderBad(){
+    return new ResponseEntity<>(oderBad,HttpStatus.OK);
+}
 
 
     @GetMapping("/uservalidation/{id}")
@@ -115,6 +120,11 @@ public class AdminAPI {
     @GetMapping("/ordersuccess")
     public ResponseEntity<List<Order>> orderSuccess(){
         return new ResponseEntity<>(orderService.orderSuccess(),HttpStatus.OK);
+    }
+
+    @GetMapping("/orderbad")
+    public ResponseEntity<List<Order>> orderBad(){
+        return new ResponseEntity<>(orderService.getAllbadO(),HttpStatus.OK);
     }
 
 

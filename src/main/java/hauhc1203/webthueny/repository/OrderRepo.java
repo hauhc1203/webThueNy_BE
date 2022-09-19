@@ -27,7 +27,8 @@ public interface OrderRepo extends PagingAndSortingRepository<Order,Long> {
     @Query(nativeQuery = true,value = "select * from ordersss where app_user_id=:idUser and id =:idOrder ")
     Order showCT(@Param("idUser")long idUser,@Param("idOrder")long idOrder);
 
-
+    @Query(nativeQuery = true,value = "select distinct ordersss.id from ordersss join reportsss on ordersss.id = reportsss.about_id ")
+    List<Long> listid();
 
 
 }

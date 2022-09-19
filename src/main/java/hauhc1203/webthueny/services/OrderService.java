@@ -8,10 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class OrderService {
@@ -120,7 +117,14 @@ public class OrderService {
     public Order findByIdOrder(long idUser, long idOrder){
         return orderRepo.showCT(idUser,idOrder);
     }
-
+    public List<Order> getAllbadO(){
+        List<Long> idL=  orderRepo.listid(); //lấy ra list id order xấu
+        List<Order> orders=new ArrayList<>();
+        for (long id: idL) {
+            orders.add(findById(id));  //query xong nap vao mang
+        }
+        return orders;
+    }
 
 }
 
