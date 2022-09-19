@@ -14,7 +14,6 @@ public class MessRoomService {
     MessageRoomRepo messageRoomRepo;
     @Autowired
     AppUserService appUserService;
-
     public MessageRoom save(MessageRoom messageRoom){
 
         return messageRoomRepo.save(messageRoom);
