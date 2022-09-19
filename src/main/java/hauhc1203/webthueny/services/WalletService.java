@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 public class WalletService {
     @Autowired
     WalletRepo walletRepo;
-//    @Autowired
-//    AppUserService appUserService;
     public Wallet save(Wallet wallet){
       return   walletRepo.save(wallet);
     }

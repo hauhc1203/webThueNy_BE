@@ -169,5 +169,12 @@ public class ProfileService {
         return profileRepo.ccdv();
     }
 
-
+    public List<Profile>getlistp(List<Long> list){
+        List<Profile> list1=new ArrayList<>();
+        for (Long id: list
+             ) {
+            list1.add(findByAppUserID(id));
+        }
+        return list1;
+    }
 }

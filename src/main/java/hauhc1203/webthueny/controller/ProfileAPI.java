@@ -148,5 +148,10 @@ public class ProfileAPI {
         return new ResponseEntity<>(profileService.search(search.getFullName(),minA,maxA,search.getGender(),search.getIdCity(),search.getViews(),search.getHireTimes()),HttpStatus.OK);
     }
 
+    @PostMapping("getlistp")
+    public ResponseEntity<List<Profile>> getlistp(@RequestBody List<Long> listId){
+
+        return new ResponseEntity<>(profileService.getlistp(listId),HttpStatus.OK);
+    }
 
 }
