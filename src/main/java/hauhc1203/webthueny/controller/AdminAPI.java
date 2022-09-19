@@ -3,6 +3,7 @@ package hauhc1203.webthueny.controller;
 import hauhc1203.webthueny.config.constant.AccountConst;
 import hauhc1203.webthueny.config.constant.ProfileConst;
 import hauhc1203.webthueny.models.*;
+import hauhc1203.webthueny.models.dto.MonthAndYear;
 import hauhc1203.webthueny.repository.ReportRepo;
 import hauhc1203.webthueny.services.AppUserService;
 import hauhc1203.webthueny.services.OrderService;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -130,6 +132,16 @@ public class AdminAPI {
     @GetMapping("/orderbad/{id}")
     public ResponseEntity<List<Report>> rpByOrder(@PathVariable long id){
         return new ResponseEntity<>(reportService.getRpByOrder(id),HttpStatus.OK);
+    }
+
+    @PostMapping("/monthlyrevenue")
+    public ResponseEntity<Double> monthlyrevenue(@RequestBody MonthAndYear monthAndYear){
+        return new ResponseEntity<>(orderService.monthlyRevenue(monthAndYear.getMonth(),monthAndYear.getYear()),HttpStatus.OK);
+    }
+
+    @GetMapping("/totalOrder")
+    public ResponseEntity<Double> total(){
+        return new ResponseEntity<>(orderService.total(),HttpStatus.OK);
     }
 
 

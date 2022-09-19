@@ -27,4 +27,10 @@ public interface OrderRepo extends PagingAndSortingRepository<Order,Long> {
     @Query(nativeQuery = true,value = "select distinct ordersss.id from ordersss join reportsss on ordersss.id = reportsss.about_id ")
     List<Long> listid();
 
+    @Query(nativeQuery = true,value = "select  sum(total) from ordersss where status = 4 and month(create_date) =:month and year(create_date) =:year ;")
+    Double totalByMonth(int month,int year);
+
+    @Query(nativeQuery = true,value = "select  sum(total) from ordersss where status = 4 ;")
+    Double total();
+
 }

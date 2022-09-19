@@ -124,6 +124,20 @@ public class OrderService {
         }
         return orders;
     }
+
+    public Double monthlyRevenue(int month,int year){
+        Double total = orderRepo.totalByMonth(month,year);
+        if (total!=null){
+            Double monthlyRevenue = total*10/100;
+            return monthlyRevenue;
+        }else {
+            return Double.valueOf(0);
+        }
+    }
+    public Double total(){
+        return orderRepo.total();
+    }
+
 }
 
 
