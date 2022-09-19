@@ -16,6 +16,7 @@ public class MessRoomService {
     AppUserService appUserService;
 
     public MessageRoom save(MessageRoom messageRoom){
+
         return messageRoomRepo.save(messageRoom);
     }
 
